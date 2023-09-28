@@ -9,7 +9,8 @@ use clap::{Arg, ArgMatches, Command};
 use clap_complete::Shell;
 use env_logger::Builder;
 use log::LevelFilter;
-use mdbook::utils;
+use mdbook_spacewizards::build_opts::BuildOpts;
+use mdbook_spacewizards::utils;
 use std::env;
 use std::ffi::OsStr;
 use std::io::Write;
@@ -130,6 +131,14 @@ fn get_book_dir(args: &ArgMatches) -> PathBuf {
         }
     } else {
         env::current_dir().expect("Unable to determine the current directory")
+    }
+}
+
+fn get_build_opts(args: &ArgMatches) -> BuildOpts {
+    let language = args.get_one::<String>("language");
+
+    BuildOpts {
+        language_ident: language.cloned(),
     }
 }
 

@@ -1,6 +1,7 @@
 //! Helpers for building the command-line arguments for commands.
 
 pub use clap::{arg, Arg, ArgMatches, Command};
+use clap::builder::NonEmptyStringValueParser;
 use std::path::PathBuf;
 
 pub trait CommandExt: Sized {
@@ -19,6 +20,20 @@ pub trait CommandExt: Sized {
                     If omitted, mdBook uses build.build-dir from book.toml \
                     or defaults to `./book`.",
                 ),
+        )
+    }
+
+    fn arg_language(self) -> Self {
+        self._arg(
+            Arg::new("language")
+                .short('l')
+                .long("language")
+                .value_name("language")
+                .value_parser(NonEmptyStringValueParser::new())
+                .help(
+                    "Only valid if the [language] table in the config is not empty.\n\
+                    If omitted, builds all translations and provides a menu in the generated output for switching between them."
+                )
         )
     }
 

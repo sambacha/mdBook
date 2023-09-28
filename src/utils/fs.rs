@@ -28,7 +28,7 @@ pub fn write_file<P: AsRef<Path>>(build_dir: &Path, filename: P, content: &[u8])
 ///
 /// ```rust
 /// # use std::path::Path;
-/// # use mdbook::utils::fs::path_to_root;
+/// # use mdbook_spacewizards::utils::fs::path_to_root;
 /// let path = Path::new("some/relative/path");
 /// assert_eq!(path_to_root(path), "../../");
 /// ```
@@ -47,6 +47,9 @@ pub fn path_to_root<P: Into<PathBuf>>(path: P) -> String {
         .fold(String::new(), |mut s, c| {
             match c {
                 Component::Normal(_) => s.push_str("../"),
+                Component::ParentDir => {
+                    s.truncate(s.len() - 3);
+                }
                 _ => {
                     debug!("Other path component... {:?}", c);
                 }
@@ -245,7 +248,7 @@ pub fn get_404_output_file(input_404: &Option<String>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::copy_files_except_ext;
+    use super::{copy_files_except_ext, path_to_root};
     use std::{fs, io::Result, path::Path};
 
     #[cfg(target_os = "windows")]
@@ -324,5 +327,11 @@ mod tests {
         if !tmp.path().join("output/symlink.png").exists() {
             panic!("output/symlink.png should exist")
         }
+    }
+
+    #[test]
+    fn test_path_to_root() {
+        assert_eq!(path_to_root("some/relative/path"), "../../");
+        assert_eq!(path_to_root("some/relative/other/../path"), "../../");
     }
 }

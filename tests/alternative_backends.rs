@@ -1,7 +1,7 @@
 //! Integration tests to make sure alternative backends work.
 
-use mdbook::config::Config;
-use mdbook::MDBook;
+use mdbook_spacewizards::config::Config;
+use mdbook_spacewizards::MDBook;
 use std::fs;
 use std::path::Path;
 use tempfile::{Builder as TempFileBuilder, TempDir};
@@ -54,7 +54,7 @@ fn tee_command<P: AsRef<Path>>(out_file: P) -> String {
 #[test]
 #[cfg(not(windows))]
 fn backends_receive_render_context_via_stdin() {
-    use mdbook::renderer::RenderContext;
+    use mdbook_spacewizards::renderer::RenderContext;
     use std::fs::File;
 
     let temp = TempFileBuilder::new().prefix("output").tempdir().unwrap();

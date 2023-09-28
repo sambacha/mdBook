@@ -6,8 +6,8 @@ extern crate serde_derive;
 use std::process;
 use std::fs::{self, File};
 use std::io::{self, Write};
-use mdbook::renderer::RenderContext;
-use mdbook::book::{BookItem, Chapter};
+use mdbook_spacewizards::renderer::RenderContext;
+use mdbook_spacewizards::book::{BookItem, Chapter};
 
 fn main() {
     let mut stdin = io::stdin();

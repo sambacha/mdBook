@@ -1,8 +1,8 @@
 use crate::get_book_dir;
 use clap::{arg, ArgMatches, Command as ClapCommand};
-use mdbook::config;
-use mdbook::errors::Result;
-use mdbook::MDBook;
+use mdbook_spacewizards::config;
+use mdbook_spacewizards::errors::Result;
+use mdbook_spacewizards::MDBook;
 use std::io;
 use std::io::Write;
 use std::process::Command;
@@ -78,7 +78,7 @@ pub fn execute(args: &ArgMatches) -> Result<()> {
     }
 
     builder.build()?;
-    println!("\nAll done, no errors...");
+    println!("\nCreated new book at {}", builder.source_dir().display());
 
     Ok(())
 }

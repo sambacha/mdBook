@@ -1,7 +1,7 @@
 use crate::cli::cmd::mdbook_cmd;
 use crate::dummy_book::DummyBook;
 
-use mdbook::config::Config;
+use mdbook_spacewizards::config::Config;
 
 /// Run `mdbook init` with `--force` to skip the confirmation prompts
 #[test]

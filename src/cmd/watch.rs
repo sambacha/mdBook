@@ -1,9 +1,10 @@
 use super::command_prelude::*;
-use crate::{get_book_dir, open};
 use ignore::gitignore::Gitignore;
-use mdbook::errors::Result;
-use mdbook::utils;
-use mdbook::MDBook;
+use crate::{get_book_dir, get_build_opts, open};
+use clap::{Arg, ArgMatches};
+use mdbook_spacewizards::errors::Result;
+use mdbook_spacewizards::utils;
+use mdbook_spacewizards::MDBook;
 use std::path::{Path, PathBuf};
 use std::sync::mpsc::channel;
 use std::thread::sleep;
@@ -16,12 +17,14 @@ pub fn make_subcommand() -> Command {
         .arg_dest_dir()
         .arg_root_dir()
         .arg_open()
+        .arg_language()
 }
 
 // Watch command implementation
 pub fn execute(args: &ArgMatches) -> Result<()> {
     let book_dir = get_book_dir(args);
-    let mut book = MDBook::load(book_dir)?;
+    let build_opts = get_build_opts(args);
+    let mut book = MDBook::load_with_build_opts(&book_dir, build_opts.clone())?;
 
     let update_config = |book: &mut MDBook| {
         if let Some(dest_dir) = args.get_one::<PathBuf>("dest-dir") {
@@ -42,10 +45,11 @@ pub fn execute(args: &ArgMatches) -> Result<()> {
 
     trigger_on_change(&book, |paths, book_dir| {
         info!("Files changed: {:?}\nBuilding book...\n", paths);
-        let result = MDBook::load(book_dir).and_then(|mut b| {
-            update_config(&mut b);
-            b.build()
-        });
+        let result =
+            MDBook::load_with_build_opts(&book_dir, build_opts.clone()).and_then(|mut b| {
+                update_config(&mut b);
+                b.build()
+            });
 
         if let Err(e) = result {
             error!("Unable to build the book");

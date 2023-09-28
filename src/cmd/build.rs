@@ -1,7 +1,8 @@
+use crate::{get_book_dir, get_build_opts, open};
+use clap::{Arg, ArgMatches};
 use super::command_prelude::*;
-use crate::{get_book_dir, open};
-use mdbook::errors::Result;
-use mdbook::MDBook;
+use mdbook_spacewizards::errors::Result;
+use mdbook_spacewizards::MDBook;
 use std::path::PathBuf;
 
 // Create clap subcommand arguments
@@ -11,12 +12,14 @@ pub fn make_subcommand() -> Command {
         .arg_dest_dir()
         .arg_root_dir()
         .arg_open()
+        .arg_language()
 }
 
 // Build command implementation
 pub fn execute(args: &ArgMatches) -> Result<()> {
     let book_dir = get_book_dir(args);
-    let mut book = MDBook::load(book_dir)?;
+    let opts = get_build_opts(args);
+    let mut book = MDBook::load_with_build_opts(&book_dir, opts)?;
 
     if let Some(dest_dir) = args.get_one::<PathBuf>("dest-dir") {
         book.config.build.build_dir = dest_dir.into();

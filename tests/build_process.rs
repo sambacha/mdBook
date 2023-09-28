@@ -1,12 +1,13 @@
 mod dummy_book;
 
 use crate::dummy_book::DummyBook;
-use mdbook::book::Book;
-use mdbook::config::Config;
-use mdbook::errors::*;
-use mdbook::preprocess::{Preprocessor, PreprocessorContext};
-use mdbook::renderer::{RenderContext, Renderer};
-use mdbook::MDBook;
+use mdbook_spacewizards::book::Book;
+use mdbook_spacewizards::build_opts::BuildOpts;
+use mdbook_spacewizards::config::Config;
+use mdbook_spacewizards::errors::*;
+use mdbook_spacewizards::preprocess::{Preprocessor, PreprocessorContext};
+use mdbook_spacewizards::renderer::{RenderContext, Renderer};
+use mdbook_spacewizards::MDBook;
 use std::sync::{Arc, Mutex};
 
 struct Spy(Arc<Mutex<Inner>>);
@@ -48,8 +49,9 @@ fn mdbook_runs_preprocessors() {
 
     let temp = DummyBook::new().build().unwrap();
     let cfg = Config::default();
+    let build_opts = BuildOpts::default();
 
-    let mut book = MDBook::load_with_config(temp.path(), cfg).unwrap();
+    let mut book = MDBook::load_with_config(temp.path(), cfg, build_opts).unwrap();
     book.with_preprocessor(Spy(Arc::clone(&spy)));
     book.build().unwrap();
 
@@ -68,8 +70,9 @@ fn mdbook_runs_renderers() {
 
     let temp = DummyBook::new().build().unwrap();
     let cfg = Config::default();
+    let build_opts = BuildOpts::default();
 
-    let mut book = MDBook::load_with_config(temp.path(), cfg).unwrap();
+    let mut book = MDBook::load_with_config(temp.path(), cfg, build_opts).unwrap();
     book.with_renderer(Spy(Arc::clone(&spy)));
     book.build().unwrap();
 

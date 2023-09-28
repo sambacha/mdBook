@@ -28,8 +28,8 @@
 //! the `MDBook::init()` method.
 //!
 //! ```rust,no_run
-//! use mdbook::MDBook;
-//! use mdbook::config::Config;
+//! use mdbook_spacewizards::MDBook;
+//! use mdbook_spacewizards::config::Config;
 //!
 //! let root_dir = "/path/to/book/root";
 //!
@@ -48,7 +48,7 @@
 //! You can also load an existing book and build it.
 //!
 //! ```rust,no_run
-//! use mdbook::MDBook;
+//! use mdbook_spacewizards::MDBook;
 //!
 //! let root_dir = "/path/to/book/root";
 //!
@@ -84,6 +84,7 @@
 #![deny(rust_2018_idioms)]
 
 pub mod book;
+pub mod build_opts;
 pub mod config;
 pub mod preprocess;
 pub mod renderer;
