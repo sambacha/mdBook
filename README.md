@@ -6,7 +6,6 @@ This is a fork of `mdBook` with several unmerged PRs integrated. This was origin
 
 The following PRs are integrated into the master branch:
 - https://github.com/rust-lang/mdBook/pull/1306
-- https://github.com/rust-lang/mdBook/pull/1802
 - https://github.com/rust-lang/mdBook/pull/1618
 
 ## Using in actions
