@@ -748,6 +748,9 @@ pub struct HtmlConfig {
     /// The mapping from old pages to new pages/URLs to use when generating
     /// redirects.
     pub redirect: HashMap<String, String>,
+    /// Whether to enable sitemap generation. If this is set, `site_url` must be an
+    /// absolute URL.
+    pub sitemap: bool,
 }
 
 impl Default for HtmlConfig {
@@ -776,6 +779,7 @@ impl Default for HtmlConfig {
             cname: None,
             live_reload_endpoint: None,
             redirect: HashMap::new(),
+            sitemap: false,
         }
     }
 }

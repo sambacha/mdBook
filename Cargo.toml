@@ -38,6 +38,7 @@ shlex = "1.1.0"
 tempfile = "3.4.0"
 toml = "0.5.11" # Do not update, see https://github.com/rust-lang/mdBook/issues/2037
 topological-sort = "0.2.2"
+url = "2.2.2"
 
 # Watch feature
 notify = { version = "6.0.1", optional = true }
