@@ -1,10 +1,11 @@
 [package]
-name = "mdbook"
-version = "0.4.34"
+name = "mdbook-spacewizards"
+version = "0.4.35"
 authors = [
     "Mathieu David <mathieudavid@mathieudavid.org>",
     "Michael-F-Bryan <michaelfbryan@gmail.com>",
-    "Matt Ickstadt <mattico8@gmail.com>"
+    "Matt Ickstadt <mattico8@gmail.com>",
+    "Space Wizards Federation"
 ]
 documentation = "https://rust-lang.github.io/mdBook/index.html"
 edition = "2021"
@@ -12,7 +13,7 @@ exclude = ["/guide/*"]
 keywords = ["book", "gitbook", "rustbook", "markdown"]
 license = "MPL-2.0"
 readme = "README.md"
-repository = "https://github.com/rust-lang/mdBook"
+repository = "https://github.com/space-wizards/mdBook-spacewizards"
 description = "Creates a book from markdown files"
 rust-version = "1.66"
 
@@ -66,7 +67,7 @@ search = ["dep:elasticlunr-rs", "dep:ammonia"]
 
 [[bin]]
 doc = false
-name = "mdbook"
+name = "mdbook-spacewizards"
 
 [[example]]
 name = "nop-preprocessor"
